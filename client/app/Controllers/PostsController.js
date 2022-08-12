@@ -1,9 +1,9 @@
 import { ProxyState } from "../AppState.js";
-import { postService } from "../Services/PostService.js";
+import { postsService } from "../Services/PostsService.js";
 import { Pop } from "../Utils/Pop.js";
 
 
-
+// TODO draw a post based on postId
 function _drawPost(postId) {
     let template = ' '
     ProxyState.post.find(p => p.id = postId)
@@ -21,31 +21,13 @@ function _drawPost(postId) {
 
 
 
-export class PostController {
+export class PostsController {
     constructor() {
         ProxyState.on('post', _drawPost)
     }
-    async createPost() {
-        try {
-            // @ts-ignore
-            event.preventDefault()
-            // @ts-ignore
-            const form = event.target
-
-            const packageData = {
-                // @ts-ignore
-                img: form.img.value,
-                caption: form.caption.value
-            }
-
-        } catch (error) {
-            console.log('[Creating Post]', error);
-        }
-    }
-
     async deletePost(postId) {
         try {
-            await postService.deletePost(postId)
+            await postsService.deletePost(postId)
         } catch (error) {
             console.log('[Deleting Post]', error);
             Pop.error(error)

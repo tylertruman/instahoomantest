@@ -1,16 +1,14 @@
 import { AuthController } from './Controllers/AuthController.js'
-import { ValuesController } from './Controllers/ValuesController.js'
-import { AllPostController } from './Controllers/AllPostController.js'
-import { PostController } from './Controllers/PostController.js'
-import { CommentController } from './Controllers/CommentController.js'
+import { AllPostsController } from './Controllers/AllPostsController.js'
+import { PostsController } from './Controllers/PostsController.js'
+import { CommentsController } from './Controllers/CommentsController.js'
 
 class App {
   authController = new AuthController();
-  valuesController = new ValuesController();
 
-  allPostController = new AllPostController();
-  postController = new PostController();
-  commentController = new CommentController();
+  allPostsController = new AllPostsController();
+  postsController = new PostsController();
+  commentsController = new CommentsController();
 
 
 }

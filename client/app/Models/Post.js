@@ -1,5 +1,5 @@
 
-export class Post {
+export class Post{
     constructor(data){
         this.img = data.img 
         this.caption = data.caption
@@ -10,7 +10,7 @@ export class Post {
 
     get Template() {
         return `
-        // FEED VIEW WITH ALL OF THE POST
+        //modale
         `
     }
 }

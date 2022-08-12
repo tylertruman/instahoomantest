@@ -1,7 +1,7 @@
 import BaseController from "../utils/BaseController.js"
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { postsService } from "../services/PostsService.js"
-import { BadRequest } from "../utils/Errors.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 export class PostsController extends BaseController {
 
@@ -9,17 +9,36 @@ export class PostsController extends BaseController {
     super('api/posts')
     this.router
       .get('', this.getAllPosts)
+      .get('/:postId', this.getCommentsByPostId)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('/:creatorId', this.getPostsByCreatorId)
+      .get('/:id', this.getPostById)
+      .get('/:id', this.getPostsByCreatorId)
       .post('', this.createPost)
-      .delete('/:postId', this.deletePost)
+      .delete('/:id', this.deletePost)
       .put('/:postId', this.editPost)
   }
 
   async getAllPosts(req, res, next) {
     try {
       const posts = await postsService.getAllPosts()
-      res.send(posts)
+      return res.send(posts)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async getCommentsByPostId(req, res, next) {
+    try {
+      let comments = await commentsService.getCommentsByPostId(req.params.postId)
+      res.send(comments)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getPostById(req, res, next) {
+    try {
+      const post = await postsService.getPostById(req.params.id)
+      return res.send(post)
     } catch (error) {
       next(error)
     }
@@ -29,7 +48,7 @@ export class PostsController extends BaseController {
     try {
       const userId = req.userInfo.id
       const posts = await postsService.getPostsByCreatorId(userId)
-      res.send(posts)
+      return res.send(posts)
     } catch (error) {
       next(error)
     }
@@ -38,9 +57,25 @@ export class PostsController extends BaseController {
   async createPost(req, res, next) {
     try {
       const postData = req.body
-      req.body.creatorId = req.userInfo.id
+      postData.creatorId = req.userInfo.id
       const posts = await postsService.createPost(postData)
-      res.send(posts)
+      return res.send(posts)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async editPost(req, res, next) {
+    try {
+      const userId = req.userInfo.id
+      const postId = req.params.postId
+      const postData = req.body
+      const currentPost = await this.getPostById(postId)
+      if (currentPost.creatorId.toString() !== userId) {
+        throw new Forbidden('Only the creator may edit this post')
+      }
+      let post = await postsService.editPost(postId, postData,)
+      return res.send(post)
     } catch (error) {
       next(error)
     }
@@ -48,19 +83,13 @@ export class PostsController extends BaseController {
 
   async deletePost(req, res, next) {
     try {
-      if(req.userInfo.id != req.creatorId){
-        throw new BadRequest('Only the creator may delete this post')
-      }
       const postId = req.params.id
       const userId = req.userInfo.id
-      await postsService.deletePost(postId, userId)
-    } catch (error) {
-      next(error)
-    }
-  }
-  async editPost(req, res, next) {
-    try {
-      
+      if (req.creatorId.toString() !== userId) {
+        throw new Forbidden('Only the creator may delete this post')
+      }
+      const post = await postsService.deletePost(postId, userId)
+      return res.send(post)
     } catch (error) {
       next(error)
     }

@@ -1,6 +1,6 @@
 
 
-export class AllPost {
+export class AllPost{
     constructor(data){
         this.id = data.id
         this.img = data.img
