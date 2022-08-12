@@ -1,7 +1,7 @@
 import { AuthController } from './Controllers/AuthController.js'
 import { ValuesController } from './Controllers/ValuesController.js'
 import { FeedController } from './Controllers/FeedController.js'
-import { Controller } from './Controllers/FeedController.js'
+import { PostController } from './Controllers/PostController.js'
 
 class App {
   authController = new AuthController();
