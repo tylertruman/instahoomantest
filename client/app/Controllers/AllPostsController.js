@@ -1,13 +1,12 @@
 import { Pop } from "../Utils/Pop.js";
 import { ProxyState } from "../AppState.js";
-import { api } from "../Services/AxiosService.js";
-import { AllPost } from "../Models/AllPost.js"
+import { AllPost } from "../Models/AllPost.js";
 import { allpostsService } from "../Services/AllPostsService.js";
 
 
 function _drawAllPost() {
     let template = ""
-    ProxyState.allpost.forEach(f => template += f.Template)
+    ProxyState.allposts.forEach(f => template += f.Template)
     // @ts-ignore
     document.getElementById('all-post').innerHTML = template
 }
@@ -16,7 +15,7 @@ function _drawAllPost() {
 
 export class AllPostsController {
     constructor() {
-        ProxyState.on('allpost', _drawAllPost)
+        ProxyState.on('allposts', _drawAllPost)
         this.getAllPost()
     }
     async getAllPost() {

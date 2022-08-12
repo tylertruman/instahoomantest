@@ -56,6 +56,40 @@ class CommentsService{
         let comments = await dbContext.Comments.find({postId})
         return comments
     }
+    // NOTE Not sure if this will work or if it will only grab one! Will need to figure that out
+    async getCommentsByPostId(postId){
+        let comments = await dbContext.Comments.find({postId})
+        return comments
+    }
+    async getCommentsByPostId(postId){
+        let comments = await dbContext.Comments.find({postId})
+        return comments
+    }
+    async getCommentsByPostId(postId){
+        let comments = await dbContext.Comments.find({postId})
+        return comments
+    }
+    async getCommentsByPostId(postId){
+        let comments = await dbContext.Comments.find({postId})
+        return comments
+    }
+    // NOTE Not sure if this will work or if it will only grab one! Will need to figure that out
+    async getCommentsByPostId(postId){
+        let comments = await dbContext.Comments.find({postId})
+        return comments
+    }
+    async getCommentsByPostId(postId){
+        let comments = await dbContext.Comments.find({postId})
+        return comments
+    }
+    async getCommentsByPostId(postId){
+        let comments = await dbContext.Comments.find({postId})
+        return comments
+    }
+    async getCommentsByPostId(postId){
+        let comments = await dbContext.Comments.find({postId})
+        return comments
+    }
     async getCommentsByPostId(postId){
         let comments = await dbContext.Comments.find({postId})
         return comments

@@ -7,16 +7,16 @@ class AllPostsService{
  
     async deletePost(postId) {
       await api.delete(`api/post/${postId}`)
-      ProxyState.allpost = ProxyState.allpost.filter(p => p.id != postId)
+      ProxyState.allposts = ProxyState.allposts.filter(p => p.id != postId)
     }
     async getAllPost() {
         let res = await api.get('api/post')
-        ProxyState.allpost = res.data.map(p => new AllPost(p))    
+        ProxyState.allposts = res.data.map(p => new AllPost(p))    
     }
     async createPost(newPost) {
         let res = await api.post('api/post', newPost)
         let post = new AllPost(res.data)
-        ProxyState.allpost = [...ProxyState.allpost, post]
+        ProxyState.allposts = [...ProxyState.allposts, post]
 
    }
 
