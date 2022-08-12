@@ -8,13 +8,7 @@ export class Post {
 
     get Template() {
         return `
-        
-        `
-    }
-
-    get VoteTemplate(){
-        return `
-        // 
+        // FEED
         `
     }
 
