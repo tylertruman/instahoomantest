@@ -1,10 +1,13 @@
 import mongoose from 'mongoose'
 import { AccountSchema } from '../models/Account'
-import { ValueSchema } from '../models/Value'
+import { PostSchema } from '../models/Post.js'
 
 class DbContext {
-  Values = mongoose.model('Value', ValueSchema);
+  Posts = mongoose.model('Post', PostSchema);
   Account = mongoose.model('Account', AccountSchema);
+  Comments = mongoose.model('Comment', CommentSchema);
+
+  Profiles = mongoose.model('Profiles', ProfilesSchema);
 }
 
 export const dbContext = new DbContext()

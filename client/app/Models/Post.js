@@ -4,17 +4,13 @@ export class Post {
         this.img = data.img 
         this.caption = data.caption
         this.id = data.id
+        this.upvote = data.upvote
+        this.downvote = data.downvote
     }
 
     get Template() {
         return `
-        // FEED
-        `
-    }
-
-    get PostByIdTemplate(){ 
-        return`
-        // MODAL CARD GOES HERE
+        // FEED VIEW WITH ALL OF THE POST
         `
     }
 }
