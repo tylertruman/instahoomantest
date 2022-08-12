@@ -7,6 +7,7 @@ export class CommentsController extends BaseController {
     constructor() {
         super('api/comments')
         this.router
+            .get('', this.getComments)
             // NOTE Not sure what we will need here, just getting all options laid out
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createComment)
@@ -14,6 +15,15 @@ export class CommentsController extends BaseController {
             .delete('/:commentId', this.deleteComment)
             .put('/:commentId', this.editComment)
     }
+
+    async getComments(req, res, next) {
+        try {
+          let comments = await commentsService.getComments()
+          res.send(comments)
+        } catch (error) {
+          next(error)
+        }
+      }
 
     async getCommentById(req, res, next) {
         try {
@@ -37,10 +47,6 @@ export class CommentsController extends BaseController {
 
     async deleteComment(req, res, next) {
         try {
-
-            if (req.body.creatorId.toString() !== req.userInfo.id) {
-                throw new Forbidden('Only the creator may edit this post')
-            }
             let comment = await commentsService.deleteComment(req.params.commentId)
             res.send(comment)
         } catch (error) {
@@ -50,9 +56,6 @@ export class CommentsController extends BaseController {
 
     async editComment(req, res, next) {
         try {
-            if (req.body.creatorId.toString() !== req.userInfo.id) {
-                throw new Forbidden('Only the creator may edit this post')
-            }
             let commentData = req.body
             let comment = await commentsService.editComment(req.params.commentId, commentData)
             res.send(comment)
