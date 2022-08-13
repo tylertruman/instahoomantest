@@ -3,14 +3,16 @@ export class Post {
         this.img = data.img
         this.title = data.title
         this.id = data.id
-        this.upvote = data.upvote
-        this.downvote = data.downvote
+        this.upVotes = data.upVotes
+        this.downVotes = data.downVotes
+        this.creator = data.creatorInfo
     }
 
     get CardTemplate() {
         return `
-        <div class="pt-5 col-md-3" onclick="app.allPostsController.setSinglePost('${this.id}')">
+        <div class="pt-5 col-md-3 text-center" onclick="app.allPostsController.setSinglePost('${this.id}')">
             <img class="img-fluid p-img" src="${this.img}" alt="" data-bs-toggle="modal" data-bs-target="#details-modal">
+            <i class="btn mdi mdi-delete" onclick="app.postsController.deletePost('${this.id}')"></i>
         </div>
         `
     }
@@ -28,8 +30,7 @@ export class Post {
         <div class="col-6">
             <div class="mx-3">
                 <div>
-                    <p class="fw-2">${this.title} <i
-                    class="btn mdi mdi-delete fs-5" onclick="app.commentsController.deleteComment('${this.id}')"></i></p>
+                    <h5 class="fw-2">${this.title}</h5>
                 </div>
                 <div id="comments">
                 </div>
@@ -40,10 +41,10 @@ export class Post {
         <div class="row justify-content-between p-3">
 
             <div class="col-3">
-                <h4 class="text-center">10 🔥</h4>
+                <h4 class="text-center">${this.upVotes} <span class="selectable" onclick="app.postsController.addUpVote('${this.id}')">🔥</span></h4>
             </div>
             <div class="col-3">
-                <h4 class="text-center">2 🥶</h4>
+                <h4 class="text-center">${this.downVotes} <span class="selectable" onclick="app.postsController.addDownVote('${this.id}')">🥶</span></h4>
             </div>
 
             <div class="col-6">

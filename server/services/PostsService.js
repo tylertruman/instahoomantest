@@ -31,7 +31,8 @@ class PostsService {
   }
 
   async editPost(postId, postData) {
-    let post = await dbContext.Posts.findById(postId)
+    // let post = await dbContext.Posts.findById(postId)
+    let post = await this.getPostById(postId)
 
     post.title = postData.title || post.title
     post.img = postData.img || post.img

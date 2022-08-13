@@ -67,3 +67,7 @@ main img {
 .del-btn {
     color: red;
 }
+
+.creator-picture {
+    height: 20px;
+}

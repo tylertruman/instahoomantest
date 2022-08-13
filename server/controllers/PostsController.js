@@ -71,7 +71,7 @@ export class PostsController extends BaseController {
   async editPost(req, res, next) {
     try {
         let postData = req.body
-        let post = await postsService.editPost(req.params.commentId, postData)
+        let post = await postsService.editPost(req.params.postId, postData)
         res.send(post)
     } catch (error) {
         next(error)

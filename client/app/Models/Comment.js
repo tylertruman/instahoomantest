@@ -8,7 +8,9 @@ export class Comment{
 
     get Template(){
         return `
-        <p><img src="${this.creatorInfo.picture}" height="50" width="50" class="rounded-circle" alt="">${this.message} <small onclick="app.commentsController.deleteComment(${this.id})"class="del-btn">ⓧ</small></p>
+        <p><img src="${this.creatorInfo.picture}" height="35" width="35" class="rounded-circle" alt="">
+        <small><i>${this.message}</i></small>
+        <small class="selectable text-danger" onclick="app.commentsController.deleteComment('${this.id}')"class="del-btn">ⓧ</small></p>
         `
     }
 }

@@ -39,4 +39,36 @@ export class PostsController {
             Pop.error(error)
         }
     }
+
+    async deletePost(postId) {
+        try {
+            await postsService.deletePost(postId)
+        } catch (error) {
+            console.error('[Delete Post]', error)
+            Pop.error(error)
+        }
+    }
+
+    async addUpVote(postId){
+        try {
+            let postData = {
+                id: postId,
+                upVotes: ProxyState.post.upVotes.value
+            }
+            
+            await postsService.addUpVote(postData)
+        } catch (error) {
+            console.error('[Add Upvote]', error)
+            Pop.error(error)
+        }
+    }
+
+    async addDownVote(postId){
+        try {
+            await postsService.addDownVote(postId)
+        } catch (error) {
+            console.error('[Add Downvote]', error)
+            Pop.error(error)
+        }
+    }
 }
