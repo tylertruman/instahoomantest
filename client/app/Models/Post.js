@@ -1,4 +1,3 @@
-import { ProxyState } from "../AppState.js"
 export class Post {
     constructor(data) {
         this.img = data.img
@@ -8,12 +7,10 @@ export class Post {
         this.downvote = data.downvote
     }
 
-
     get CardTemplate() {
         return `
         <div class="pt-5 col-md-3" onclick="app.allPostsController.setSinglePost('${this.id}')">
             <img class="img-fluid p-img" src="${this.img}" alt="" data-bs-toggle="modal" data-bs-target="#details-modal">
-            
         </div>
         `
     }
@@ -62,7 +59,6 @@ export class Post {
 
         </div>
     </div>
-
-        `
+    `
     }
 }

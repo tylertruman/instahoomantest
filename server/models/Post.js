@@ -11,3 +11,10 @@ export const PostSchema = new Schema(
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
+
+PostSchema.virtual('creatorInfo', {
+  justOne: true,
+  foreignField: '_id',
+  localField: 'creatorId',
+  ref: 'Account'
+})

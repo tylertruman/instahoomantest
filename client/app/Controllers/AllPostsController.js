@@ -1,8 +1,6 @@
 import { Pop } from "../Utils/Pop.js";
 import { ProxyState } from "../AppState.js";
-import { Post } from "../Models/Post.js";
 import { allPostsService } from "../Services/AllPostsService.js";
-
 
 function _drawAllPost() {
     let template = ""
@@ -11,13 +9,12 @@ function _drawAllPost() {
     document.getElementById('all-post').innerHTML = template
 }
 
-//
-
 export class AllPostsController {
     constructor() {
         ProxyState.on('posts', _drawAllPost)
         this.getAllPost()
     }
+    
     async setSinglePost(postId) {
         try {
             await allPostsService.setSinglePost(postId)
@@ -26,6 +23,7 @@ export class AllPostsController {
             Pop.error(error)
         }
     }
+    
     async getAllPost() {
         try {
             console.log("Getting All Post");
@@ -36,10 +34,11 @@ export class AllPostsController {
             Pop.error(error)
         }
     }
+    
     async createPost() {
         try {
             // @ts-ignore
-            event.preventDefault()
+            window.event.preventDefault()
             // @ts-ignore
             const form = event.target
             const newPost = {

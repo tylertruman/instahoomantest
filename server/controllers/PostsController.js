@@ -5,11 +5,11 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { commentsService } from "../services/CommentsService.js"
 
 export class PostsController extends BaseController {
-
   constructor() {
     super('api/posts')
     this.router
       .get('', this.getAllPosts)
+      .get('/:postId/comments', this.getCommentsOnPost)
       // .get('/:postId', this.getCommentsByPostId)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('/:postId', this.getPostById)
@@ -21,21 +21,22 @@ export class PostsController extends BaseController {
 
   async getAllPosts(req, res, next) {
     try {
-      const posts = await postsService.getAllPosts()
+      const query = req.query
+      const posts = await postsService.getAllPosts(query)
       res.send(posts)
     } catch (error) {
       next(error)
     }
   }
   // NOTE doesn't exist in commentsService! Don't know if we need?
-  // async getCommentsByPostId(req, res, next) {
-  //   try {
-  //     let comments = await commentsService.getCommentsByPostId(req.params.postId)
-  //     res.send(comments)
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
+  async getCommentsOnPost(req, res, next) {
+    try {
+      let comments = await commentsService.getCommentsOnPost(req.params.postId)
+      res.send(comments)
+    } catch (error) {
+      next(error)
+    }
+  }
 
   async getPostById(req, res, next) {
     try {
@@ -75,7 +76,7 @@ export class PostsController extends BaseController {
     } catch (error) {
         next(error)
     }
-}
+  }
 
   // async editPost(req, res, next) {
   //   try {

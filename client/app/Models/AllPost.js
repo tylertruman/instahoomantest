@@ -1,5 +1,3 @@
-
-
 export class AllPost{
     constructor(data){
         this.id = data.id

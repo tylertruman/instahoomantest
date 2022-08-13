@@ -28,8 +28,8 @@ export class PostsController {
     constructor() {
         ProxyState.on('post', _drawPost)
         // ProxyState.on('posts', _drawPosts)
-
     }
+    
     async getPosts() {
         try {
             console.log('Getting Single Post');
@@ -39,8 +39,4 @@ export class PostsController {
             Pop.error(error)
         }
     }
-
-
-
-
 }

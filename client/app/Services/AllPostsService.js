@@ -1,6 +1,5 @@
 import { ProxyState } from "../AppState.js";
 import { Post } from "../Models/Post.js";
-import { Pop } from "../Utils/Pop.js";
 import { api } from "./AxiosService.js";
 
 class AllPostsService {
@@ -28,7 +27,6 @@ class AllPostsService {
     let post = new Post(res.data)
     ProxyState.posts = [...ProxyState.posts, post]
   }
-
 }
 
 export const allPostsService = new AllPostsService()

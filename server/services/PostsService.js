@@ -4,13 +4,12 @@ import { BadRequest, Forbidden } from '../utils/Errors.js'
 
 class PostsService {
   
-  async getAllPosts() {
-    let posts = await dbContext.Posts.find()
-    return posts
+  async getAllPosts(query = {}) {
+    return await dbContext.Posts.find(query).populate('creatorInfo', 'name picture')
   }
   
   async getPostById(postId) {
-    let post = await dbContext.Posts.findById(postId)
+    let post = await dbContext.Posts.findById(postId).populate('creatorInfo', 'name picture')
     if (!post) {
       throw new BadRequest('Invalid Post ID')
     }
@@ -26,8 +25,9 @@ class PostsService {
   }
 
   async createPost(postData) {
-    let posts = await dbContext.Posts.create(postData)
-    return posts
+    let post = await dbContext.Posts.create(postData)
+    await post.populate('creatorInfo', 'name picture')
+    return post
   }
 
   async editPost(postId, postData) {

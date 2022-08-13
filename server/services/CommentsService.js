@@ -3,13 +3,12 @@ import { dbContext } from "../db/DbContext"
 // NOTE may need to import posts service
 
 class CommentsService{
-    async getComments(){
-        let comments = await dbContext.Comments.find()
-        return comments
+    async getComments(query = {}){
+        return await dbContext.Comments.find(query).populate('creatorInfo', 'name picture')
     }
 
     async getCommentsOnPost(postId){
-        let postComments = await dbContext.Comments.find({postId}).populate('commenter', 'img')
+        let postComments = await dbContext.Comments.find({postId}).populate('creatorInfo', 'picture')
         return postComments
     }
     async getCommentById(commentId){

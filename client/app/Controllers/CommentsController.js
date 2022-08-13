@@ -13,7 +13,6 @@ function _drawComment() {
 }
 
 export class CommentsController {
-
     constructor() {
         ProxyState.on('comments', _drawComment)
         ProxyState.on('post', _drawComment)
@@ -74,6 +73,4 @@ export class CommentsController {
             Pop.error(error)
         }
     }
-
-
 }
