@@ -1,12 +1,12 @@
 import { Pop } from "../Utils/Pop.js";
 import { ProxyState } from "../AppState.js";
-import { AllPost } from "../Models/AllPost.js";
-import { allpostsService } from "../Services/AllPostsService.js";
+import { Post } from "../Models/Post.js";
+import { allPostsService } from "../Services/AllPostsService.js";
 
 
 function _drawAllPost() {
     let template = ""
-    ProxyState.allposts.forEach(f => template += f.Template)
+    ProxyState.posts.forEach(f => template += f.CardTemplate)
     // @ts-ignore
     document.getElementById('all-post').innerHTML = template
 }
@@ -15,15 +15,24 @@ function _drawAllPost() {
 
 export class AllPostsController {
     constructor() {
-        ProxyState.on('allposts', _drawAllPost)
+        ProxyState.on('posts', _drawAllPost)
         this.getAllPost()
+    }
+    async setSinglePost(postId) {
+        try {
+            await allPostsService.setSinglePost(postId)
+        } catch (error) {
+            console.log('[Set Single Post]', error);
+            Pop.error(error)
+        }
     }
     async getAllPost() {
         try {
-            await allpostsService.getAllPost()
+            console.log("Getting All Post");
+            await allPostsService.getAllPost()
 
         } catch (error) {
-            console.log('[Getting Feed]', error);
+            console.log('[Getting All Post]', error);
             Pop.error(error)
         }
     }
@@ -37,9 +46,9 @@ export class AllPostsController {
                 // @ts-ignore
                 img: form.img.value,
                 // @ts-ignore
-                caption: form.caption.value
+                title: form.title.value
             }
-            await allpostsService.createPost(newPost)
+            await allPostsService.createPost(newPost)
             // @ts-ignore
             form.reset()
         } catch (error) {
@@ -47,9 +56,10 @@ export class AllPostsController {
         }
     }
 
-    async deletePost(postId){
+    async deletePost(postId) {
         try {
-            await allpostsService.deletePost(postId)
+            console.log("Deleting Post", postId);
+            await allPostsService.deletePost(postId)
         } catch (error) {
             console.log('[Deleting Post]', error)
             Pop.error(error)

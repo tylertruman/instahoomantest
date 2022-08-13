@@ -1,13 +1,13 @@
 import { ProxyState } from "../AppState.js";
 import { api } from "./AxiosService.js";
+import { Post } from "../Models/Post.js";
 
 class PostsService {
-  async deletePost(postId) {
-    let res = await api.delete(`api/post/${postId}`)
-    ProxyState.posts = ProxyState.posts.filter(p => p.id != postId)
-    
-  } 
-
+  async getPosts() {
+    console.log("getting single post service");
+    let res = await api.get('api/post')
+    ProxyState.posts = res.data.map(p => new Post(p))
+  }
 }
 
 export const postsService = new PostsService()
