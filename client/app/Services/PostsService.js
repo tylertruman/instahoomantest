@@ -15,7 +15,8 @@ class PostsService {
   }
 
   async addUpVote(postData){
-    // let upVotes = ProxyState.post.upVotes ++
+    postData.upVotes++
+    ProxyState.post.upVotes++
     let res = await api.put(`/api/posts/${postData.id}`, postData)
     let post = new Post(res.data)
     let postIndex = ProxyState.posts.findIndex(p => p.id == postData.id)
@@ -24,11 +25,12 @@ class PostsService {
     ProxyState.posts = ProxyState.posts
   }
 
-  async addDownVote(postId){
-    let downvote = ProxyState.post.downVotes ++
-    let res = await api.put(`/api/posts/${postId}`, downvote)
+  async addDownVote(postData){
+    postData.downVotes++
+    ProxyState.post.downVotes++
+    let res = await api.put(`/api/posts/${postData.id}`, postData)
     let post = new Post(res.data)
-    let postIndex = ProxyState.posts.findIndex(p => p.id == postId)
+    let postIndex = ProxyState.posts.findIndex(p => p.id == postData.id)
     ProxyState.posts.splice(postIndex, 1, post)
     ProxyState.post = ProxyState.post
     ProxyState.posts = ProxyState.posts

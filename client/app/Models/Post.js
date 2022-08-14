@@ -12,6 +12,7 @@ export class Post {
         return `
         <div class="pt-5 col-md-3 text-center" onclick="app.allPostsController.setSinglePost('${this.id}')">
             <img class="img-fluid p-img" src="${this.img}" alt="" data-bs-toggle="modal" data-bs-target="#details-modal">
+            <br>
             <i class="btn mdi mdi-delete" onclick="app.postsController.deletePost('${this.id}')"></i>
         </div>
         `

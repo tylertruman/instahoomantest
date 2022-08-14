@@ -51,11 +51,11 @@ export class PostsController {
 
     async addUpVote(postId){
         try {
+            let selectedPost = ProxyState.post
             let postData = {
                 id: postId,
-                upVotes: ProxyState.post.upVotes.value
+                upVotes: selectedPost.upVotes
             }
-            
             await postsService.addUpVote(postData)
         } catch (error) {
             console.error('[Add Upvote]', error)
@@ -65,7 +65,12 @@ export class PostsController {
 
     async addDownVote(postId){
         try {
-            await postsService.addDownVote(postId)
+            let selectedPost = ProxyState.post
+            let postData = {
+                id: postId,
+                downVotes: selectedPost.downVotes
+            }
+            await postsService.addDownVote(postData)
         } catch (error) {
             console.error('[Add Downvote]', error)
             Pop.error(error)

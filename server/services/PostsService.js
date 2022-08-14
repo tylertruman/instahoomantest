@@ -37,7 +37,7 @@ class PostsService {
     post.title = postData.title || post.title
     post.img = postData.img || post.img
     post.upVotes = postData.upVotes || post.upVotes
-    post.downVotes = post.downVotes || post.downVotes
+    post.downVotes = postData.downVotes || post.downVotes
 
     await post.save()
     return post
