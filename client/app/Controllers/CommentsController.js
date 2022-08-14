@@ -25,7 +25,7 @@ export class CommentsController {
             await commentsService.getComments()
         } catch (error) {
             console.log('[Get Comments]', error)
-            Pop.error(error)
+            // Pop.error(error)
         }
     }
 
