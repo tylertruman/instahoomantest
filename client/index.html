@@ -58,6 +58,14 @@
   <!-- SECTION This is our body -->
 
   <main class="container-fluid">
+    <section class="row text-center mt-4 mb-0">
+      <div class="col-6">
+        <button class="btn btn-info" onclick="app.allPostsController.viewMostPopular()">Most Popular</button>
+      </div>
+      <div class="col-6">
+        <button class="btn btn-info" onclick="app.allPostsController.viewLeastPopular()">Least Popular</button>
+      </div>
+    </section>
     <div id="all-post" class="row">
       <!-- <div class="pt-5 col-3">
               <img class=" img-fluid p-img"

@@ -4,7 +4,16 @@ import { allPostsService } from "../Services/AllPostsService.js";
 
 function _drawAllPost() {
     let template = ""
-    ProxyState.posts.forEach(f => template += f.CardTemplate)
+    let posts = ProxyState.posts.sort((a, b) => b.upVotes - a.upVotes)
+    posts.forEach(f => template += f.CardTemplate)
+    // @ts-ignore
+    document.getElementById('all-post').innerHTML = template
+}
+
+function _drawLeastPopularPosts(){
+    let template = ''
+    let posts = ProxyState.posts.sort((a, b) => b.downVotes - a.downVotes)
+    posts.forEach(f => template += f.CardTemplate)
     // @ts-ignore
     document.getElementById('all-post').innerHTML = template
 }
@@ -13,6 +22,16 @@ export class AllPostsController {
     constructor() {
         ProxyState.on('posts', _drawAllPost)
         this.getAllPost()
+    }
+
+    viewLeastPopular(){
+        _drawLeastPopularPosts()
+        this.getAllPost
+    }
+
+    viewMostPopular(){
+        _drawAllPost()
+        this.getAllPost
     }
     
     async setSinglePost(postId) {

@@ -6,6 +6,7 @@ export class Post {
         this.upVotes = data.upVotes
         this.downVotes = data.downVotes
         this.creator = data.creatorInfo
+        this.createdAt = data.createdAt
     }
 
     get CardTemplate() {
